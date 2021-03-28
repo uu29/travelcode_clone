@@ -4,7 +4,7 @@ type Func = {
   startTest: () => void;
 };
 
-export default function Home({ startTest }: Func) {
+export default function Intro({ startTest }: Func) {
   return (
     <section>
       <Img src="https://city.travelcode.kr/img/back_new.32ec6f63.jpg" alt="나를 도시로 표현한다면?" />

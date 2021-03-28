@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import splitLine from "../splitLine";
 
 interface IChoice {
   text: string;
@@ -32,7 +33,7 @@ export default function Questions({ questions, step, opacity, qid, onClickRes, c
         <PlainLine step={step} />
       </Top>
       <Bottom opacity={opacity}>
-        <Question>{questions[qid].question}</Question>
+        <Question>{splitLine(questions[qid].question)}</Question>
         <ol>
           {questions[qid].choice.map((citem, ci) => (
             <li key={ci}>
@@ -42,7 +43,7 @@ export default function Questions({ questions, step, opacity, qid, onClickRes, c
                 myNumber={ci}
                 clickedBtn={clickedBtn}
               >
-                {citem.text}
+                {splitLine(citem.text)}
               </ResponseBtn>
             </li>
           ))}

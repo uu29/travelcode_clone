@@ -1,8 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
+import { RouteComponentProps } from "react-router-dom";
 
-export default function Result() {
+type TParams = { city: string };
+
+export default function Result({ match }: RouteComponentProps<TParams>) {
   const [isLoading, setIsLoading] = useState(true);
 
   const cbSetTout = useCallback(() => {

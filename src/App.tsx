@@ -1,14 +1,15 @@
-import { useState, useCallback } from "react";
-import Home from "./Home";
-import Content from "./Content";
+import { Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Result from "./pages/Result";
 import styled from "@emotion/styled";
 
 export default function App() {
-  const [isStart, setIsStart] = useState(false as boolean);
-  const startTest = useCallback((): void => {
-    setIsStart(true);
-  }, []);
-  return <Main>{!isStart ? <Home startTest={startTest} /> : <Content />}</Main>;
+  return (
+    <Main>
+      <Route exact path="/" component={Home} />
+      <Route path="/result/:city" component={Result} />
+    </Main>
+  );
 }
 
 const Main = styled.main`

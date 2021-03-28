@@ -1,14 +1,14 @@
 import { useState, useCallback } from "react";
-import questions from "./questions.json";
+import { useHistory } from "react-router-dom";
+import questions from "../questions.json";
 import Questions from "./Questions";
-import Result from "./Result";
 
 export default function Content() {
+  const history = useHistory();
   const [step, setStep] = useState(1);
   const [qid, setQid] = useState(0);
   const [point, setPoint] = useState(0);
   const [opacity, setOpacity] = useState(1);
-  const [isEnd, setIsEnd] = useState(false);
   const [clickedBtn, setClickedBtn] = useState(-1);
 
   const cbSetTout = useCallback(() => {
@@ -29,27 +29,21 @@ export default function Content() {
       setOpacity(0);
       setTimeout(cbSetTout, 600);
       if (step >= questions.length) {
-        setIsEnd(true);
+        history.push("/result/paris");
         submitResult();
       }
     },
-    [cbSetTout, step, submitResult]
+    [cbSetTout, step, submitResult, history]
   );
 
   return (
-    <>
-      {!isEnd ? (
-        <Questions
-          questions={questions}
-          step={step}
-          opacity={opacity}
-          qid={qid}
-          onClickRes={onClickRes}
-          clickedBtn={clickedBtn}
-        />
-      ) : (
-        <Result />
-      )}
-    </>
+    <Questions
+      questions={questions}
+      step={step}
+      opacity={opacity}
+      qid={qid}
+      onClickRes={onClickRes}
+      clickedBtn={clickedBtn}
+    />
   );
 }
