@@ -1,5 +1,4 @@
 import { useState, useCallback } from "react";
-import styled from "@emotion/styled";
 import questions from "./questions.json";
 import Questions from "./Questions";
 import Result from "./Result";
@@ -35,18 +34,12 @@ export default function Content() {
   );
 
   return (
-    <Wrapper>
+    <>
       {!isEnd ? (
         <Questions questions={questions} step={step} opacity={opacity} qid={qid} onClickRes={onClickRes} />
       ) : (
         <Result />
       )}
-    </Wrapper>
+    </>
   );
 }
-
-const Wrapper = styled.section`
-  background: #efefef;
-  height: 100vh;
-  padding: 1em;
-`;
