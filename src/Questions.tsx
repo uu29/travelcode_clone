@@ -16,10 +16,11 @@ interface IQuestionsProps {
   step: number;
   opacity: number;
   qid: number;
-  onClickRes: (cValue: number) => void;
+  onClickRes: (cValue: number, ci: number) => void;
+  clickedBtn: number;
 }
 
-export default function Questions({ questions, step, opacity, qid, onClickRes }: IQuestionsProps) {
+export default function Questions({ questions, step, opacity, qid, onClickRes, clickedBtn }: IQuestionsProps) {
   return (
     <Wrapper>
       <Top>
@@ -34,9 +35,16 @@ export default function Questions({ questions, step, opacity, qid, onClickRes }:
         <Question>{questions[qid].question}</Question>
         <ol>
           {questions[qid].choice.map((citem, ci) => (
-            <Response key={ci} onClick={() => onClickRes(citem.value)}>
-              {citem.text}
-            </Response>
+            <li key={ci}>
+              <ResponseBtn
+                type="button"
+                onClick={() => onClickRes(citem.value, ci)}
+                myNumber={ci}
+                clickedBtn={clickedBtn}
+              >
+                {citem.text}
+              </ResponseBtn>
+            </li>
           ))}
         </ol>
       </Bottom>
@@ -104,7 +112,8 @@ const Question = styled.h1`
   height: 200px;
 `;
 
-const Response = styled.li`
+const ResponseBtn = styled.button<{ myNumber: number; clickedBtn: number }>`
+  width: 100%;
   margin-bottom: 1.5em;
   border-radius: 12px;
   border: 1px solid #ddd;
@@ -113,6 +122,16 @@ const Response = styled.li`
   padding: 1.25em;
   text-align: center;
   font-size: 1.25em;
+  outline: 0 none;
+  background: #fff;
+
+  ${(props) => {
+    if (props.myNumber === props.clickedBtn)
+      return `
+      background: #009cfb;
+      color: #fff;    
+    `;
+  }}
 `;
 
 const Bottom = styled.section<{ opacity: number }>`

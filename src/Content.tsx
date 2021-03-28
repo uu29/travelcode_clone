@@ -9,10 +9,12 @@ export default function Content() {
   const [point, setPoint] = useState(0);
   const [opacity, setOpacity] = useState(1);
   const [isEnd, setIsEnd] = useState(false);
+  const [clickedBtn, setClickedBtn] = useState(-1);
 
   const cbSetTout = useCallback(() => {
     setOpacity(1);
     setQid((prevQid) => prevQid + 1);
+    setClickedBtn(-1);
   }, []);
 
   const submitResult = useCallback(() => {
@@ -20,7 +22,8 @@ export default function Content() {
   }, [point]);
 
   const onClickRes = useCallback(
-    (cValue: number) => {
+    (cValue: number, ci: number) => {
+      setClickedBtn(ci);
       setStep((prevStep) => prevStep + 1);
       setPoint((prevPoint) => prevPoint + cValue);
       setOpacity(0);
@@ -36,7 +39,14 @@ export default function Content() {
   return (
     <>
       {!isEnd ? (
-        <Questions questions={questions} step={step} opacity={opacity} qid={qid} onClickRes={onClickRes} />
+        <Questions
+          questions={questions}
+          step={step}
+          opacity={opacity}
+          qid={qid}
+          onClickRes={onClickRes}
+          clickedBtn={clickedBtn}
+        />
       ) : (
         <Result />
       )}
